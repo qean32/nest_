@@ -6,14 +6,13 @@ import { RolesService } from 'src/roles/roles.service';
 @Injectable()
 export class UsersService {
 
-    constructor(@InjectModel(User) private userRepository: typeof User) { }
-    //  private RoleServive: RolesService) { }
+    constructor(@InjectModel(User) private userRepository: typeof User, private RoleServive: RolesService) { }
 
     async create(body) {
         const user = await this.userRepository.create(body)
-        // const roles = await this.RoleServive.getRoleByName('user')
+        const roles = await this.RoleServive.getRoleByName('user')
         await user.$set('roles', [1])
-        // user.roles = [roles]
+        user.roles = [roles]
         return user
     }
 
