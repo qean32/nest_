@@ -6,20 +6,20 @@ export class Role extends Model {
     @Column({ type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true })
     id: number
 
-    @Column({ type: DataType.STRING, unique: true })
+    @Column({ type: DataType.STRING })
     name: string
 
-    @BelongsToMany(() => Role, () => UserRoles)
+    @BelongsToMany(() => User, () => UserRoles)
     roles: User[]
 }
 
 @Table({ tableName: 'user-roles', createdAt: false, updatedAt: false })
 export class UserRoles extends Model {
-    @Column({ type: DataType.INTEGER, primaryKey: true })
+    @Column({ type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true })
     id: number
 
     @ForeignKey(() => Role)
-    @Column({ type: DataType.INTEGER })
+    @Column({ type: DataType.INTEGER, unique: false })
     roleId: number
 
     @ForeignKey(() => User)
