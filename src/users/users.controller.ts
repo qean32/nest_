@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Patch, Post, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -13,5 +13,15 @@ export class UsersController {
   @Get()
   getAllUser() {
     return this.usersService.getAllUser()
+  }
+
+  @Patch('update')
+  update(@Query() id: any, @Body() body: any) {
+    return this.usersService.update(id, body)
+  }
+
+  @Delete('delete')
+  delete(@Query() id: any) {
+    return this.usersService.delete(id)
   }
 }

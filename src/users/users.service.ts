@@ -16,6 +16,16 @@ export class UsersService {
         return user
     }
 
+    async update(id, body) {
+        if (body) {
+            return await this.userRepository.update(body, { where: { id: id.id } })
+        }
+    }
+
+    async delete(id) {
+        return await this.userRepository.destroy({ where: { id: id.id } })
+    }
+
     async getAllUser() {
         const users = await this.userRepository.findAll({ include: { all: true } })
         return users
