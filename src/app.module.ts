@@ -6,6 +6,7 @@ import { RolesModule } from './roles/roles.module';
 import { Role, UserRoles } from "./roles/roles.model";
 import { AuthModule } from './auth/auth.module';
 import { FlowersModule } from './flowers/flowers.module';
+import { Flower } from "./flowers/flowers.model";
 
 @Module({
     controllers: [],
@@ -22,6 +23,7 @@ import { FlowersModule } from './flowers/flowers.module';
                 User,
                 Role,
                 UserRoles,
+                Flower,
                 
             ],
             autoLoadModels: true
