@@ -17,7 +17,7 @@ export class FlowersService {
     }
 
     async findById(id) {
-        const flower = await this.FlowerRepository.findOne({ where: { id } })
+        const flower = await this.FlowerRepository.findOne({ where: { id: id.id } })
         return flower
     }
 
@@ -27,13 +27,14 @@ export class FlowersService {
     }
 
     async delete(id) {
-        return await this.FlowerRepository.destroy({ where: { id } })
+        return await this.FlowerRepository.destroy({ where: { id: id.id } })
     }
 
     async getPage(offset, limit) {
-        const flowers = await this.FlowerRepository.findAndCountAll({
-            limit: limit,
-            offset: offset
+        const flowers = await this.FlowerRepository.findAll({
+            limit: Number(limit),
+            offset: Number(offset)
         })
+        return flowers
     }
 }
