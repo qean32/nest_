@@ -13,7 +13,7 @@ export class AuthController {
   }
 
   @Post('registration')
-  @Roles('admin')
+  // @Roles('admin')
   @UseGuards(RoleGuard)
   registration(@Body() body: any) {
     return this.authService.registration(body)
