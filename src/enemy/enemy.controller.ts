@@ -1,14 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes } from '@nestjs/common';
 import { EnemyService } from './enemy.service';
 import { CreateEnemyDto } from './dto/create-enemy.dto';
 import { UpdateEnemyDto } from './dto/update-enemy.dto';
+import { ValidationPipe } from 'src/pipes/ValidationPipe';
 
 @Controller('enemy')
 export class EnemyController {
   constructor(private readonly enemyService: EnemyService) { }
 
+  @UsePipes(ValidationPipe)
   @Post()
-  create(@Body() CreateEnemyDto: CreateEnemyDto) {
+  create(@Body(new ValidationPipe()) CreateEnemyDto: CreateEnemyDto) {
     return this.enemyService.create(CreateEnemyDto);
   }
 

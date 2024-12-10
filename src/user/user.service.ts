@@ -3,14 +3,18 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from './entities/user.entity';
+import { RoleService } from 'src/role/role.service';
+import { RoleName } from 'src/exports';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User) private readonly userRepository: typeof User) { }
+  constructor(@InjectModel(User) private readonly userRepository: typeof User, private readonly RoleService: RoleService) { }
 
   async create(createUserDto: CreateUserDto) {
     const user = await this.userRepository.create(createUserDto)
-    user.$set('roles', [1])
+    const role = await this.RoleService.getByName(RoleName.ROLE_USER)
+    await user.$set('roles', [role.id])
+    user.roles = [role]
     return user
   }
 
@@ -32,7 +36,7 @@ export class UserService {
   }
 
   async getUserByEmail(email: string) {
-    const user = await this.userRepository.findOne({ where: { email } })
+    const user = await this.userRepository.findOne({ where: { email }, include: { all: true } })
     return user
   }
 }

@@ -13,6 +13,6 @@ export class User extends Model<User> {
     @Column({ type: DataType.STRING, allowNull: false })
     password: string;
 
-    @BelongsToMany(() => User, () => UserRoles)
+    @BelongsToMany(() => Role, () => UserRoles)
     roles: Role[]
 }

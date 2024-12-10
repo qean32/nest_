@@ -11,7 +11,7 @@ export class AuthService {
   constructor(private readonly userService: UserService, private readonly jwtService: JwtService) { }
 
   async regisatration(createUserDto: CreateUserDto) {
-    const user_ = this.userService.getUserByEmail(createUserDto.email)
+    const user_ = await this.userService.getUserByEmail(createUserDto.email)
     if (user_) {
       throw new HttpException('Пользователь с таким email существует', HttpStatus.BAD_REQUEST);
     }
@@ -31,7 +31,7 @@ export class AuthService {
     throw new HttpException('no', HttpStatus.BAD_REQUEST)
   }
 
-  async generateToken({ email, password, roles }: User) {
-    return this.jwtService.sign({ email, password, roles })
+  async generateToken({ email, id, roles }: User) {
+    return this.jwtService.sign({ email, id, roles })
   }
 }

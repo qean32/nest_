@@ -1,8 +1,10 @@
-import { IsString } from "class-validator"
+import { IsInt, IsString } from "class-validator"
 
 export class CreateEnemyDto {
-    @IsString({ message: 'noOOOO' })
+    @IsString()
     readonly name: string
+    @IsInt()
     readonly health: number
+    @IsInt()
     readonly species: number
 }
