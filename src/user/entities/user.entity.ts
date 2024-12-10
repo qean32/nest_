@@ -15,4 +15,7 @@ export class User extends Model<User> {
 
     @BelongsToMany(() => Role, () => UserRoles)
     roles: Role[]
+
+    @Column({ type: DataType.STRING })
+    ava: string
 }

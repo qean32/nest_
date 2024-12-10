@@ -7,6 +7,7 @@ import { UserRoles } from 'src/role/entities/role-users.entity';
 import { Role } from 'src/role/entities/role.entity';
 import { User } from './entities/user.entity';
 import { RoleModule } from 'src/role/role.module';
+import { FilesModule } from 'src/files/files.module';
 
 @Module({
   controllers: [UserController],
@@ -15,6 +16,7 @@ import { RoleModule } from 'src/role/role.module';
     SequelizeModule.forFeature([User, Role, UserRoles]),
     RoleModule,
     forwardRef(() => AuthModule),
+    FilesModule
   ],
   exports: [
     UserService,

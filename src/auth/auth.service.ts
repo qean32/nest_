@@ -10,14 +10,14 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthService {
   constructor(private readonly userService: UserService, private readonly jwtService: JwtService) { }
 
-  async regisatration(createUserDto: CreateUserDto) {
+  async regisatration(createUserDto: CreateUserDto, ava) {
     const user_ = await this.userService.getUserByEmail(createUserDto.email)
     if (user_) {
       throw new HttpException('Пользователь с таким email существует', HttpStatus.BAD_REQUEST);
     }
 
     const hashPassword = await bcrypt.hash(createUserDto.password, 5)
-    const user = await this.userService.create({ ...createUserDto, password: hashPassword })
+    const user = await this.userService.create({ ...createUserDto, password: hashPassword }, ava)
 
     return this.generateToken(user)
   }
